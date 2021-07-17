@@ -1,0 +1,59 @@
+main{
+    border: 1px solid black;
+    min-width: 300px;
+    max-width: 500px;
+    height: 600px;
+    background-color: blanchedalmond;
+}
+
+#dispCalc{
+    border: 1px solid black;
+    background-color: rgba(12, 134, 155, 0.342);
+    width: 75%;
+    height: 90px;
+    margin: 50px auto 30px;
+}
+
+#content{
+    /* border: 2px solid rgb(70, 50, 21); */
+    width: 400px;
+    height: 380px;
+    background-color: blanchedalmond;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: minmax(90px, auto);
+}
+
+#numbers{
+    /* border: 1px solid rgb(14, 250, 105); */
+    width: 290px;
+    height: 380px;
+    /* background-color: rgb(80, 72, 61); */
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: minmax(90px, auto);
+}
+
+.num, #numClear{
+    height: auto;
+    width: 90%;
+    font-size: 2em;
+    margin: 2px;
+    display: flexbox;
+}
+
+#operators{
+    /* border: 1px solid rgb(163, 14, 14); */
+    width: 100%;
+    background-color: blanchedalmond;
+    margin: 0px 2px 0px auto;
+}
+
+.oper, #bckSpc, #result{
+    height: 16%;
+    width: 100%;
+    font-size: 2em;
+    margin: 2px 0px 0px 0px;
+}
