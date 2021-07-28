@@ -22,13 +22,15 @@ for(let x=0; x<numeros.length; x++){
 for(let x=0; x<operadores.length; x++){
     oprDig = '';
     operadores[x].addEventListener("click", function(){
-        oprDig += this.innerHTML;
-        visor.innerHTML = oprDig;
-        saveOperator();
-        saveNumber();
+        if(numDig != ''){
+            oprDig = this.innerHTML;
+            visor.innerHTML = oprDig;
+            saveOperator();
+            saveNumber();
             if(ord > 1){
                 resultOp();
             }
+        }
     });
 }
 
@@ -50,9 +52,25 @@ function saveOperator(){
 }
 
 function resultOp(){
-    if(number[ord-3] == '+'){
-        result = Number.parseFloat(number[ord-4]) + Number.parseFloat(number[ord-2]);
-        number[ord-2] = result;
-        console.log(result);
+    switch(number[ord-3]){
+        case '+':
+            result = Number.parseFloat(number[ord-4]) + Number.parseFloat(number[ord-2]);
+            number[ord-2] = result;
+        break;
+        case '-':
+            result = Number.parseFloat(number[ord-4]) - Number.parseFloat(number[ord-2]);
+            number[ord-2] = result;
+            console.log(result);
+        break;
+        case 'x':
+            result = Number.parseFloat(number[ord-4]) * Number.parseFloat(number[ord-2]);
+            number[ord-2] = result;
+            console.log(result);
+        break;
+        case '/':
+            result = Number.parseFloat(number[ord-4]) / Number.parseFloat(number[ord-2]);
+            number[ord-2] = result;
+            console.log(result);
+        break;
     }
 }

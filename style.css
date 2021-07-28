@@ -4,6 +4,7 @@ main{
     max-width: 500px;
     height: 600px;
     background-color: blanchedalmond;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 #dispCalc{
@@ -12,6 +13,8 @@ main{
     width: 75%;
     height: 90px;
     margin: 50px auto 30px;
+    font-size: 2.5em;
+    
 }
 
 #content{
@@ -42,6 +45,7 @@ main{
     font-size: 2em;
     margin: 2px;
     display: flexbox;
+    background-color: rgb(122, 78, 15);
 }
 
 #operators{
@@ -56,4 +60,5 @@ main{
     width: 100%;
     font-size: 2em;
     margin: 2px 0px 0px 0px;
+    background-color: rgb(94, 59, 10);
 }
