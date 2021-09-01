@@ -1,76 +1,91 @@
-let visor = document.getElementById('dispCalc');
+let displayTyped = document.getElementById('type')
+let displayHistory = document.getElementById('resume')
 let numeros = document.body.querySelectorAll(".num")
 let operadores = document.body.querySelectorAll('.oper')
 let keyC = document.getElementById('numClear')
-let numDig, oprDig, result;
-let ord  = 0;
-let number=[];
-keyC.addEventListener('click',limpaVisor);
+let result = document.getElementById('result')
+let backspace = document.getElementById('bckSpc')
+let operation = new Array();
+let number = "";
+let res;
 
-//console.log(numeros.length)
+function doOperation(items){
+    if(items.length < 3 && items.length > 0){
+        return items[0];
+    }else if(items.length === 3){
+        let result = eval(`${items[0]} ${items[1]} ${items[2]}`)
+        return result;
+    }else{
+        return 0;
+    }
+}
+
+keyC.addEventListener('click',function(){
+    displayTyped.innerHTML = "";
+    displayHistory.innerHTML = "";
+    operation.length = 0;
+    number = "";
+});
+
+backspace.addEventListener('click', ()=>{
+    number = number.slice(0,-1)
+    displayTyped.innerHTML = number
+})
+
+result.addEventListener('click',()=>{
+    operation.push(Number(number));
+    res = doOperation(operation);
+    number = "";
+    displayHistory.innerHTML = operation.join("")
+    operation.length = 0;
+    operation[0] = res;
+    displayTyped.innerHTML = res;
+});
+
 
 //Adicionar eventListener para os números
-for(let x=0; x<numeros.length; x++){
-    numDig = '';
+for(let x = 0; x < numeros.length; x++){
     numeros[x].addEventListener("click", function(){
-        numDig += this.innerHTML;
-        visor.innerHTML = numDig;
+        number += this.innerHTML;
+        displayTyped.innerHTML = number
     });
 }
 
-//Adicionar eventListener para os operadores
-for(let x=0; x<operadores.length; x++){
-    oprDig = '';
+for(let x = 0; x < operadores.length; x++){
     operadores[x].addEventListener("click", function(){
-        if(numDig != ''){
-            oprDig = this.innerHTML;
-            visor.innerHTML = oprDig;
-            saveOperator();
-            saveNumber();
-            if(ord > 1){
-                resultOp();
-            }
+        displayHistory.innerHTML = number;
+        displayTyped.innerHTML = ""
+        if(number != ""){
+            operation.push(Number(number))
+        }
+        if(operation.length === 3){
+            res = ""
+            res = doOperation(operation)
+            operation = [];
+            operation[0] = res;
+            operation[1] = this.value;
+            displayHistory.innerHTML = res;            
+            displayHistory.innerHTML += this.innerHTML;
+            displayTyped.innerHTML = ""
+            number = "";
+        }else if(operation.length === 2){
+            displayHistory.innerHTML = operation[0]
+            operation[1] = this.value;
+            displayTyped.innerHTML = ""
+            displayHistory.innerHTML += this.innerHTML
+        }else if (operation.length === 1){
+            operation.push(this.value)
+            displayTyped.innerHTML = ""
+            displayHistory.innerHTML = operation[0]
+            displayHistory.innerHTML += this.innerHTML
+            number = ""
+        }else{
+            operation.push(Number(number))
+            operation.push(this.value)
+            displayTyped.innerHTML = ""
+            displayHistory.innerHTML = operation[0]
+            displayHistory.innerHTML += this.innerHTML
+            number = ""
         }
     });
-}
-
-function limpaVisor(){
-    visor.innerHTML = "";
-    numDig = '';
-    ord = 0;
-}
-
-function saveNumber(){
-    number[ord] = numDig;
-    numDig = '';
-    ord += 2;
-}
-
-function saveOperator(){
-    number[ord+1] = oprDig;
-    oprDig = '';
-}
-
-function resultOp(){
-    switch(number[ord-3]){
-        case '+':
-            result = Number.parseFloat(number[ord-4]) + Number.parseFloat(number[ord-2]);
-            number[ord-2] = result;
-        break;
-        case '-':
-            result = Number.parseFloat(number[ord-4]) - Number.parseFloat(number[ord-2]);
-            number[ord-2] = result;
-            console.log(result);
-        break;
-        case 'x':
-            result = Number.parseFloat(number[ord-4]) * Number.parseFloat(number[ord-2]);
-            number[ord-2] = result;
-            console.log(result);
-        break;
-        case '/':
-            result = Number.parseFloat(number[ord-4]) / Number.parseFloat(number[ord-2]);
-            number[ord-2] = result;
-            console.log(result);
-        break;
-    }
 }
