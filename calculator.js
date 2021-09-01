@@ -7,7 +7,7 @@ let result = document.getElementById('result')
 let backspace = document.getElementById('bckSpc')
 let operation = new Array();
 let number = "";
-let res;
+let res = "";
 
 function doOperation(items){
     if(items.length < 3 && items.length > 0){
@@ -16,7 +16,7 @@ function doOperation(items){
         let result = eval(`${items[0]} ${items[1]} ${items[2]}`)
         return result;
     }else{
-        return 0;
+        return [];
     }
 }
 
@@ -33,13 +33,16 @@ backspace.addEventListener('click', ()=>{
 })
 
 result.addEventListener('click',()=>{
-    operation.push(Number(number));
-    res = doOperation(operation);
-    number = "";
-    displayHistory.innerHTML = operation.join("")
-    operation.length = 0;
-    operation[0] = res;
-    displayTyped.innerHTML = res;
+    if(operation.length > 1){
+        console.log(operation)
+        operation.push(Number(number));
+        res = doOperation(operation);
+        displayHistory.innerHTML = operation.join("")
+        number = "";
+        operation = [];
+        operation[0] = res;
+        displayTyped.innerHTML = res;
+    }
 });
 
 
@@ -65,13 +68,13 @@ for(let x = 0; x < operadores.length; x++){
             operation[0] = res;
             operation[1] = this.value;
             displayHistory.innerHTML = res;            
-            displayHistory.innerHTML += this.innerHTML;
             displayTyped.innerHTML = ""
+            displayHistory.innerHTML += this.innerHTML;
             number = "";
         }else if(operation.length === 2){
-            displayHistory.innerHTML = operation[0]
             operation[1] = this.value;
             displayTyped.innerHTML = ""
+            displayHistory.innerHTML = operation[0]
             displayHistory.innerHTML += this.innerHTML
         }else if (operation.length === 1){
             operation.push(this.value)
