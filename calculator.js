@@ -67,28 +67,24 @@ for(let x = 0; x < operadores.length; x++){
             operation = [];
             operation[0] = res;
             operation[1] = this.value;
-            displayHistory.innerHTML = res;            
-            displayTyped.innerHTML = ""
-            displayHistory.innerHTML += this.innerHTML;
-            number = "";
+            print(res, this.innerHTML)
         }else if(operation.length === 2){
             operation[1] = this.value;
-            displayTyped.innerHTML = ""
-            displayHistory.innerHTML = operation[0]
-            displayHistory.innerHTML += this.innerHTML
+            print(operation[0], this.innerHTML)
         }else if (operation.length === 1){
             operation.push(this.value)
-            displayTyped.innerHTML = ""
-            displayHistory.innerHTML = operation[0]
-            displayHistory.innerHTML += this.innerHTML
-            number = ""
+            print(operation[0], this.innerHTML)
         }else{
             operation.push(Number(number))
             operation.push(this.value)
-            displayTyped.innerHTML = ""
-            displayHistory.innerHTML = operation[0]
-            displayHistory.innerHTML += this.innerHTML
-            number = ""
+            print(operation[0], this.innerHTML)
         }
     });
+}
+
+function print(p1, p2){
+    displayTyped.innerHTML = ""
+    displayHistory.innerHTML = p1
+    displayHistory.innerHTML += p2
+    number = "";
 }
